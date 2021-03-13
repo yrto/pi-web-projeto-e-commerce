@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+}
+
+html {
+    background-color:#121212;
+    color: #eee;
+    cursor: default;
+    font-weight: 400;
+    margin: 1.5em;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - root */
+
+body {margin: 0 auto; max-width: 720px; line-height: 1.5rem;}
+
+h2 {font-size: 1.5rem; font-weight: 700; color: white;margin-bottom: 1.75rem;}
+
+a {text-decoration: none; display: inline-block; color: white; transition: 200ms;}
+
+ul {display: flex; flex-wrap: wrap; }
+ul li {list-style: none; display: flex; flex-direction: column; flex-grow: 1;padding: 1rem;}
+ul li img {width: 100%; max-width: 200px;}
+
+/* - - - - - - - - - - - - - - - - - - - - header */
+
+#header {padding: 1.75rem 0; font-weight: 700;}
+#header .navbar {display: flex; justify-content: space-between;}
+#header .navbar i {margin-right: 0.5rem;}
+#header .navbar .nav-functions {display: flex;}
+#header .navbar .nav-functions a {background-color: tomato; padding: 0 0.75rem; margin-left: 0.5rem; border-radius: 1rem; font-size: 1rem;}
+
+/* - - - - - - - - - - - - - - - - - - - - footer */
+
+#footer {color: #444; margin: 2.5rem 0; font-size: 0.75rem; font-weight: 700;}
+
+/* - - - - - - - - - - - - - - - - - - - - wishlist */
+
+#wishlist {background: hsl(0, 0%, 0%, 90%); position: absolute; top: 0; left: 0; margin: 2%; width: 96%; height: 96%; display: none;}
