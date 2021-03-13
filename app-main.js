@@ -52,6 +52,14 @@ class Product {
 }
 
 //
+// - - - - - - - - - - - - - - - - - - - - nav-functions
+//
+
+const buttons = document.querySelectorAll(".nav-functions a")
+
+// buttons.addEventListener("mouseover", click)
+
+//
 // - - - - - - - - - - - - - - - - - - - - tests
 //
 
