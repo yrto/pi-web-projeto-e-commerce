@@ -31,6 +31,14 @@ const closePopUp = () => {
 popUpCloseButtonElementLocation.addEventListener("click", closePopUp)
 
 //
+// - - - - - - - - - - - - - - - - - - - - nav brand also closes pop-up
+//
+
+const navBrandLocation = document.querySelector("#pop-up .nav-brand")
+
+navBrandLocation.addEventListener("click", closePopUp)
+
+//
 // - - - - - - - - - - - - - - - - - - - - shopping cart
 //
 
@@ -76,57 +84,69 @@ class ShoppingCart {
         return total
     }
     createShoppingCartPage() {
-        // level 1
+        // shopping cart title and total
         const titleElement = document.createElement("h2")
-        titleElement.appendChild(document.createTextNode("Carrinho de compras"))
+        titleElement.innerHTML = `<i class="fas fa-shopping-cart" data-fa-transform="down-1"></i>Carrinho de compras`
         const shoppingCartTotalElement = document.createElement("h2")
         shoppingCartTotalElement.className = "shopping-cart-total"
         shoppingCartTotalElement.appendChild(document.createTextNode("Total"))
         const shoppingCartTotalSpanElement = document.createElement("span")
         shoppingCartTotalSpanElement.appendChild(document.createTextNode("R$ " + this.getTotal().toFixed(2)))
         shoppingCartTotalElement.appendChild(shoppingCartTotalSpanElement)
-        // level 2
-        const shoppingCartLabels = document.createElement("div")
-        shoppingCartLabels.className = "shopping-cart-labels"
-        shoppingCartLabels.innerHTML = `<p class="product-name">Nome</p><p class="product-price">Preço</p><p class="product-amount">QTD</p><p class="product-price-total">Total</p>`
-        const shoppingCartUlElement = document.createElement("ul")
-        this.productList.map(product => {
-            const p = productList.getProductById(product.id)
-            // level 1
-            const productName = document.createElement("h3")
-            productName.appendChild(document.createTextNode(p.name))
-            productName.className = "product-name"
-            const productPrice = document.createElement("p")
-            productPrice.appendChild(document.createTextNode("R$ " + p.price.toFixed(2)))
-            productPrice.className = "product-price"
-            const productAmount = document.createElement("p")
-            productAmount.appendChild(document.createTextNode(product.amount))
-            productAmount.className = "product-amount"
-            const productPriceTotal = document.createElement("p")
-            productPriceTotal.appendChild(document.createTextNode("R$ " + ((p.price * product.amount).toFixed(2))))
-            productPriceTotal.className = "product-price-total"
-            const removeFromCartButton = document.createElement("button")
-            removeFromCartButton.appendChild(document.createTextNode("X"))
-            removeFromCartButton.setAttribute("data-id", product.id)
-            removeFromCartButton.className = "remove-button"
-            // level 2
-            const shoppingCartLiElement = document.createElement("li")
-            shoppingCartLiElement.appendChild(productName)
-            shoppingCartLiElement.appendChild(productPrice)
-            shoppingCartLiElement.appendChild(productAmount)
-            shoppingCartLiElement.appendChild(productPriceTotal)
-            shoppingCartLiElement.appendChild(removeFromCartButton)
-            // final
-            shoppingCartUlElement.appendChild(shoppingCartLiElement)
-        })
-        // level 4
+        // page element
         const shoppingCartPageElement = document.createElement("div")
         shoppingCartPageElement.id = "shopping-cart-page"
         shoppingCartPageElement.appendChild(titleElement)
-        shoppingCartPageElement.appendChild(shoppingCartLabels)
-        shoppingCartPageElement.appendChild(shoppingCartUlElement)
-        shoppingCartPageElement.appendChild(shoppingCartTotalElement)
+        // check if is empty
+        if (userShoppingCart.getLenght() <= 0) {
+            const shoppingCartEmpty = document.createElement("p")
+            shoppingCartEmpty.className = "shopping-cart-empty"
+            shoppingCartEmpty.innerHTML = `Seu carrinho está vazio <i class="far fa-frown" data-fa-transform="down-1"></i>`
+            shoppingCartPageElement.appendChild(shoppingCartEmpty)
+        }
+        else {
+            const shoppingCartLabels = document.createElement("div")
+            shoppingCartLabels.className = "shopping-cart-labels"
+            shoppingCartLabels.innerHTML = `<p class="product-name">Nome</p><p class="product-price">Preço</p><p class="product-amount">QTD</p><p class="product-price-total">Total</p>`
+            const shoppingCartUlElement = document.createElement("ul")
+            this.productList.map(product => {
+                const p = productList.getProductById(product.id)
+                // level 1
+                const productName = document.createElement("h3")
+                productName.appendChild(document.createTextNode(p.name))
+                productName.className = "product-name"
+                const productPrice = document.createElement("p")
+                productPrice.appendChild(document.createTextNode("R$ " + p.price.toFixed(2)))
+                productPrice.className = "product-price"
+                const productAmount = document.createElement("p")
+                productAmount.appendChild(document.createTextNode(product.amount))
+                productAmount.className = "product-amount"
+                const productPriceTotal = document.createElement("p")
+                productPriceTotal.appendChild(document.createTextNode("R$ " + ((p.price * product.amount).toFixed(2))))
+                productPriceTotal.className = "product-price-total"
+                const removeFromCartButton = document.createElement("button")
+                removeFromCartButton.innerHTML = `<i class="fas fa-trash" data-fa-transform="down-1"></i>`
+                removeFromCartButton.setAttribute("data-id", product.id)
+                removeFromCartButton.className = "remove-button"
+                // level 2
+                const productShoppingCartInfo = document.createElement("div")
+                productShoppingCartInfo.className = "product-shopping-cart-info"
+                productShoppingCartInfo.appendChild(productName)
+                productShoppingCartInfo.appendChild(productPrice)
+                productShoppingCartInfo.appendChild(productAmount)
+                productShoppingCartInfo.appendChild(productPriceTotal)
+                const shoppingCartLiElement = document.createElement("li")
+                shoppingCartLiElement.appendChild(productShoppingCartInfo)
+                shoppingCartLiElement.appendChild(removeFromCartButton)
+                // final
+                shoppingCartUlElement.appendChild(shoppingCartLiElement)
+            })
+            // level 4
+            shoppingCartPageElement.appendChild(shoppingCartLabels)
+            shoppingCartPageElement.appendChild(shoppingCartUlElement)
+        }
         // final
+        shoppingCartPageElement.appendChild(shoppingCartTotalElement)
         return shoppingCartPageElement
     }
     saveToStorage() {
@@ -209,8 +229,11 @@ class ProductList {
             addToCartButton.addEventListener("click", event => {
                 log(event.currentTarget.dataset.id)
                 userShoppingCart.addProduct(event.currentTarget.dataset.id, 1)
-                closePopUp()
+                // closePopUp()
                 alert("Produto adicionado ao carrinho (:")
+                popUpContentElementLocation.innerHTML = ""
+                popUpContentElementLocation.appendChild(userShoppingCart.createShoppingCartPage())
+                activateRemoveButtons()
             })
         }))
     }
@@ -236,6 +259,9 @@ class Product {
         const imageElement = document.createElement("img")
         imageElement.setAttribute("src", this.img)
         imageElement.setAttribute("alt", this.name)
+        const imageContainer = document.createElement("div")
+        imageContainer.className = "img-container"
+        imageContainer.appendChild(imageElement)
         const titleElement = document.createElement("h3")
         titleElement.appendChild(document.createTextNode(this.name))
         const priceElement = document.createElement("p")
@@ -245,7 +271,7 @@ class Product {
         const linkImage = document.createElement("a")
         linkImage.setAttribute("href", "#")
         linkImage.setAttribute("data-id", this.id)
-        linkImage.appendChild(imageElement)
+        linkImage.appendChild(imageContainer)
         const linkTitle = document.createElement("a")
         linkTitle.setAttribute("href", "#")
         linkTitle.setAttribute("data-id", this.id)
@@ -268,24 +294,25 @@ class Product {
         const imageElement = document.createElement("img")
         imageElement.setAttribute("src", this.img)
         imageElement.setAttribute("alt", this.name)
-        const titleElement = document.createElement("h3")
+        const titleElement = document.createElement("h2")
         titleElement.appendChild(document.createTextNode(this.name))
         const descriptionElement = document.createElement("p")
         descriptionElement.appendChild(document.createTextNode(this.description))
+        descriptionElement.className = "product-description"
         const priceElement = document.createElement("p")
         priceElement.appendChild(document.createTextNode("R$ " + this.price.toFixed(2)))
         priceElement.classList = "product-price"
         const addToCartButtonElement = document.createElement("button")
-        addToCartButtonElement.appendChild(document.createTextNode("Adicionar ao carrinho"))
+        addToCartButtonElement.innerHTML = `<i class="fas fa-plus" data-fa-transform="down-1"></i>Comprar`
         addToCartButtonElement.setAttribute("data-id", this.id)
         addToCartButtonElement.className = "add-to-cart"
         // level 2
         const productInfoElement = document.createElement("div")
         productInfoElement.className = "product-info"
         productInfoElement.appendChild(titleElement)
-        productInfoElement.appendChild(descriptionElement)
         productInfoElement.appendChild(priceElement)
         productInfoElement.appendChild(addToCartButtonElement)
+        productInfoElement.appendChild(descriptionElement)
         // level 3
         const productPageElement = document.createElement("div")
         productPageElement.id = "product-page"
