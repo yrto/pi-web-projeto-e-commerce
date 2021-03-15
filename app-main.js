@@ -11,7 +11,7 @@ const log = something => console.log(something)
 //
 
 const pageBody = document.querySelector("body")
-const productsSectionElementLocation = document.querySelector("#products section ul")
+const productsSectionElementLocation = document.querySelector("#products ul")
 const navButtonsElementLocation = document.querySelector("#header .navbar .nav-buttons")
 
 //
@@ -81,32 +81,39 @@ class ShoppingCart {
         titleElement.appendChild(document.createTextNode("Carrinho de compras"))
         const shoppingCartTotalElement = document.createElement("h2")
         shoppingCartTotalElement.className = "shopping-cart-total"
-        shoppingCartTotalElement.appendChild(document.createTextNode("Total:"))
+        shoppingCartTotalElement.appendChild(document.createTextNode("Total"))
         const shoppingCartTotalSpanElement = document.createElement("span")
         shoppingCartTotalSpanElement.appendChild(document.createTextNode("R$ " + this.getTotal().toFixed(2)))
         shoppingCartTotalElement.appendChild(shoppingCartTotalSpanElement)
         // level 2
+        const shoppingCartLabels = document.createElement("div")
+        shoppingCartLabels.className = "shopping-cart-labels"
+        shoppingCartLabels.innerHTML = `<p class="product-name">Nome</p><p class="product-price">Preço</p><p class="product-amount">QTD</p><p class="product-price-total">Total</p>`
         const shoppingCartUlElement = document.createElement("ul")
         this.productList.map(product => {
             const p = productList.getProductById(product.id)
             // level 1
             const productName = document.createElement("h3")
             productName.appendChild(document.createTextNode(p.name))
-            const productAmount = document.createElement("p")
-            productAmount.appendChild(document.createTextNode(product.amount))
+            productName.className = "product-name"
             const productPrice = document.createElement("p")
             productPrice.appendChild(document.createTextNode("R$ " + p.price.toFixed(2)))
+            productPrice.className = "product-price"
+            const productAmount = document.createElement("p")
+            productAmount.appendChild(document.createTextNode(product.amount))
+            productAmount.className = "product-amount"
             const productPriceTotal = document.createElement("p")
             productPriceTotal.appendChild(document.createTextNode("R$ " + ((p.price * product.amount).toFixed(2))))
+            productPriceTotal.className = "product-price-total"
             const removeFromCartButton = document.createElement("button")
-            removeFromCartButton.appendChild(document.createTextNode("Remover"))
+            removeFromCartButton.appendChild(document.createTextNode("X"))
             removeFromCartButton.setAttribute("data-id", product.id)
             removeFromCartButton.className = "remove-button"
             // level 2
             const shoppingCartLiElement = document.createElement("li")
             shoppingCartLiElement.appendChild(productName)
-            shoppingCartLiElement.appendChild(productAmount)
             shoppingCartLiElement.appendChild(productPrice)
+            shoppingCartLiElement.appendChild(productAmount)
             shoppingCartLiElement.appendChild(productPriceTotal)
             shoppingCartLiElement.appendChild(removeFromCartButton)
             // final
@@ -114,8 +121,9 @@ class ShoppingCart {
         })
         // level 4
         const shoppingCartPageElement = document.createElement("div")
-        shoppingCartPageElement.className = "shopping-cart-page"
+        shoppingCartPageElement.id = "shopping-cart-page"
         shoppingCartPageElement.appendChild(titleElement)
+        shoppingCartPageElement.appendChild(shoppingCartLabels)
         shoppingCartPageElement.appendChild(shoppingCartUlElement)
         shoppingCartPageElement.appendChild(shoppingCartTotalElement)
         // final
@@ -201,6 +209,8 @@ class ProductList {
             addToCartButton.addEventListener("click", event => {
                 log(event.currentTarget.dataset.id)
                 userShoppingCart.addProduct(event.currentTarget.dataset.id, 1)
+                closePopUp()
+                alert("Produto adicionado ao carrinho (:")
             })
         }))
     }
@@ -278,7 +288,7 @@ class Product {
         productInfoElement.appendChild(addToCartButtonElement)
         // level 3
         const productPageElement = document.createElement("div")
-        productPageElement.className = "product-page"
+        productPageElement.id = "product-page"
         productPageElement.appendChild(imageElement)
         productPageElement.appendChild(productInfoElement)
         // final

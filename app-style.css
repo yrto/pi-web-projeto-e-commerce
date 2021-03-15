@@ -9,7 +9,7 @@
 }
 
 html {
-    background-color:#121212;
+    background-color: #222831;
     color: #eee;
     cursor: default;
     font-weight: 400;
@@ -22,41 +22,65 @@ body {margin: 0 auto; max-width: 720px; line-height: 1.5rem; font-size: 1rem;}
 
 /* - - - - - - - - - - - - - - - - - - - - root */
 
-h2 {font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 2rem;}
+h2 {font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;}
 h3 {display: inline-block;}
 
-a {text-decoration: none; color: white;}
+a {text-decoration: none; color: #eee;}
 a:hover {cursor: pointer;}
 
 button {font-size: inherit; background: none; color: inherit; border: 2px solid; line-height: 1.75rem; padding: 0 0.5rem; font-weight: 700; transition: 200ms;}
-button:hover {cursor: pointer;}
+button:hover {cursor: pointer; background-color: hsl(0, 0%, 93%, 0.5);}
+
+li {list-style: none;}
 
 img {display: block;}
 
-ul {display: flex; flex-wrap: wrap;}
-ul li {list-style: none; margin: 0 2rem 2rem 0;}
-ul li img {width: 100%; max-width: 200px; margin-bottom: 0.75rem;}
+/* - - - - - - - - - - - - - - - - - - - - products */
+
+#products ul {display: flex; flex-wrap: wrap;}
+#products ul li { margin: 0 2rem 2rem 0;}
+#products ul li img {width: 100%; max-width: 200px; margin-bottom: 0.75rem;}
+
+/* - - - - - - - - - - - - - - - - - - - - product page */
+
+#product-page {display: flex; align-items: center;}
+#product-page h3 {margin-bottom: 0.5rem;}
+#product-page .product-info {margin-left: 2rem;}
+#product-page .product-info .product-price {font-size: 1.5rem; margin: 2rem 0;}
+
+/* - - - - - - - - - - - - - - - - - - - - shopping cart page */
+
+#shopping-cart-page .shopping-cart-labels {font-size: 0.75rem; display: flex; justify-content: space-between; padding-right: 60px;}
+#shopping-cart-page ul {margin-bottom: 1rem;}
+#shopping-cart-page ul li {display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid;}
+#shopping-cart-page ul li:last-child {border-bottom: none;}
+#shopping-cart-page .product-name {width: 200px;}
+#shopping-cart-page .product-price {width: 80px; text-align: center;}
+#shopping-cart-page .product-amount {width: 40px; text-align: center;}
+#shopping-cart-page .product-price-total {font-weight: 700; width: 90px; text-align: center;}
+#shopping-cart-page .remove-button {width: 35px; text-align: centers;}
 
 /* - - - - - - - - - - - - - - - - - - - - header */
 
 #header {padding-bottom: 2rem; font-weight: 700;}
 #header .navbar {display: flex; justify-content: space-between; align-items: center;}
 #header .navbar svg {margin-right: 0.5rem;}
-#header .navbar .nav-buttons {display: flex; }
-#header .navbar .nav-buttons button {margin-left: 0.5rem;}
+#header .navbar .nav-buttons {display: flex;}
+#header .navbar .nav-buttons button {margin-left: 0.5rem; color: #F05454;}
+#header .navbar .nav-buttons button:hover {background-color: hsl(0, 84%, 64%, 0.35);}
 
 /* - - - - - - - - - - - - - - - - - - - - footer */
 
-#footer {color: #444; margin-bottom: 2rem; font-size: 0.75rem; font-weight: 700;}
+#footer {color: hsl(216, 18%, 26%); margin-bottom: 2rem; font-size: 0.75rem; font-weight: 700; border-top: 2px solid; padding-top: 0.75rem;}
 
-/* - - - - - - - - - - - - - - - - - - - - product page */
+/* - - - - - - - - - - - - - - - - - - - - pop up */
 
-#pop-up {background: hsl(0, 0%, 0%, 90%); padding: 2rem;  width: 100%; height: 100%; position: absolute; transition: 200ms; opacity: 1; top: 0; left: 0;}
+#pop-up {background: #eee; padding: 2rem;  width: 100%; height: 100%; position: absolute; transition: 200ms; opacity: 1; top: 0; left: 0; color: #000;}
 #pop-up.hide {display: none;}
 #pop-up.fade {opacity: 0;}
 
 #pop-up .inner-box {position: relative; max-width: 720px; margin: 0 auto;}
 #pop-up .inner-box .navbar {display: flex; justify-content: space-between; align-items: center; padding-bottom: 2rem;}
-#pop-up .content {max-width: 480px; margin: 0 auto;}
+#pop-up .content {margin: 0 auto; padding: 3.5rem 0 2rem;}
 
 #pop-up .content .shopping-cart-total {border-top: 2px solid; padding-top: 2rem; display: flex; justify-content: space-between;}
