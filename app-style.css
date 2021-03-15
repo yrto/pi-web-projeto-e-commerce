@@ -1,12 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Work Sans', sans-serif;
     box-sizing: border-box;
+    font-family: 'Work Sans', sans-serif;
+    margin: 0;
     outline: none;
+    padding: 0;
 }
 
 html {
@@ -14,35 +13,44 @@ html {
     color: #eee;
     cursor: default;
     font-weight: 400;
-    margin: 1.5em;
+    padding: 2em;
 }
+
+body {margin: 0 auto; max-width: 720px; line-height: 1.5rem; font-size: 1rem;}
+.stop-scrolling {height: 100%; overflow: hidden;}
 
 /* - - - - - - - - - - - - - - - - - - - - root */
 
-body {margin: 0 auto; max-width: 720px; line-height: 1.5rem;}
+h2 {font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 1rem;}
 
-h2 {font-size: 1.5rem; font-weight: 700; color: white;margin-bottom: 1.75rem;}
+a {text-decoration: none; display: inline-block; color: white;}
+a:hover {cursor: pointer;}
 
-a {text-decoration: none; display: inline-block; color: white; transition: 200ms;}
+button {font-size: inherit; background: none; color: inherit; border: 2px solid; line-height: 1.75rem; padding: 0 0.5rem; font-weight: 700; transition: 200ms;}
+button:hover {cursor: pointer;}
 
-ul {display: flex; flex-wrap: wrap; }
-ul li {list-style: none; display: flex; flex-direction: column; flex-grow: 1;padding: 1rem;}
-ul li img {width: 100%; max-width: 200px;}
+ul {display: flex; flex-wrap: wrap; margin-bottom: 1rem;}
+ul li {list-style: none; padding: 1rem; flex-grow: 1;}
+ul li a {display: flex;}
+ul li a img {width: 100%; max-width: 200px;}
 
 /* - - - - - - - - - - - - - - - - - - - - header */
 
-#header {padding: 1.75rem 0; font-weight: 700; line-height: 1.75rem;}
+#header {padding-bottom: 2rem; font-weight: 700;}
 #header .navbar {display: flex; justify-content: space-between; align-items: center;}
 #header .navbar svg {margin-right: 0.5rem;}
-
-#header .navbar .nav-functions {display: flex; }
-#header .navbar .nav-functions a {border: 2px solid #555; padding: 0 0.75rem; margin-left: 0.5rem; border-radius: 1rem;}
-#header .navbar .nav-functions a:hover {background-color: #555;}
+#header .navbar .nav-buttons {display: flex; }
+#header .navbar .nav-buttons button {margin-left: 0.5rem;}
 
 /* - - - - - - - - - - - - - - - - - - - - footer */
 
-#footer {color: #444; margin: 2.5rem 0; font-size: 0.75rem; font-weight: 700;}
+#footer {color: #444; margin-bottom: 2rem; font-size: 0.75rem; font-weight: 700;}
 
-/* - - - - - - - - - - - - - - - - - - - - wishlist */
+/* - - - - - - - - - - - - - - - - - - - - product page */
 
-#wishlist {background: hsl(0, 0%, 0%, 90%); position: absolute; top: 0; left: 0; margin: 2%; width: 96%; height: 96%; display: none;}
+#pop-up {background: hsl(0, 0%, 0%, 80%); padding: 2rem;  width: 100%; height: 100%; position: absolute; transition: 200ms; opacity: 1; top: 0; left: 0;}
+#pop-up.hide {display: none;}
+#pop-up.fade {opacity: 0;}
+
+#pop-up .inner-box {position: relative; max-width: 720px; margin: 0 auto;}
+#pop-up .inner-box .navbar {display: flex; justify-content: space-between; align-items: center; padding-bottom: 2rem;}
