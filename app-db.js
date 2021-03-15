@@ -30,6 +30,14 @@ let database = [
         "description": "Descrição do produto D",
         "category": "bebida",
         "price": 9.50
+    },
+    {
+        "id": "0005",
+        "name": "Produto E",
+        "img": "images/0005.jpg",
+        "description": "Descrição do produto E",
+        "category": "bebida",
+        "price": 9.50
     }
 ]
 
