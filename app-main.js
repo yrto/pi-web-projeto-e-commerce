@@ -12,7 +12,7 @@ const log = something => console.log(something)
 
 const pageBody = document.querySelector("body")
 const productsSectionElementLocation = document.querySelector("#products ul")
-const navButtonsElementLocation = document.querySelector("#header .navbar .nav-buttons")
+const navButtonsElementLocation = document.querySelector(".nav-buttons")
 
 //
 // - - - - - - - - - - - - - - - - - - - - pop-up
@@ -50,6 +50,10 @@ const activateRemoveButtons = () => {
         log("remove")
         userShoppingCart.removeProduct(event.currentTarget.dataset.id)
     }))
+    const removeAllButton = popUpContentElementLocation.querySelector(".remove-all-button")
+    removeAllButton.addEventListener("click", () => {
+        userShoppingCart.removeAllProducts()
+    })
 }
 
 class ShoppingCart {
@@ -65,13 +69,26 @@ class ShoppingCart {
         this.saveToStorage()
     }
     removeProduct(id) {
-        const productIndex = this.productList.findIndex(product => product.id == id)
-        this.productList.splice(productIndex, 1)
-        navButtons.updateButton("#shopping-cart-button")
-        popUpContentElementLocation.innerHTML = ""
-        popUpContentElementLocation.appendChild(userShoppingCart.createShoppingCartPage())
-        activateRemoveButtons()
-        this.saveToStorage()
+        const result = confirm("Gostaria de remover este produto?");
+        if (result) {
+            const productIndex = this.productList.findIndex(product => product.id == id)
+            this.productList.splice(productIndex, 1)
+            navButtons.updateButton("#shopping-cart-button")
+            popUpContentElementLocation.innerHTML = ""
+            popUpContentElementLocation.appendChild(userShoppingCart.createShoppingCartPage())
+            activateRemoveButtons()
+            this.saveToStorage()
+        }
+    }
+    removeAllProducts() {
+        const result = confirm("Gostaria de limpar o carrinho?");
+        if (result) {
+            this.productList = []
+            navButtons.updateButton("#shopping-cart-button")
+            popUpContentElementLocation.innerHTML = ""
+            popUpContentElementLocation.appendChild(userShoppingCart.createShoppingCartPage())
+            this.saveToStorage()
+        }
     }
     getLenght() {
         return this.productList.length
@@ -91,7 +108,7 @@ class ShoppingCart {
         shoppingCartTotalElement.className = "shopping-cart-total"
         shoppingCartTotalElement.appendChild(document.createTextNode("Total"))
         const shoppingCartTotalSpanElement = document.createElement("span")
-        shoppingCartTotalSpanElement.appendChild(document.createTextNode("R$ " + this.getTotal().toFixed(2)))
+        shoppingCartTotalSpanElement.appendChild(document.createTextNode("R$ " + this.getTotal().toFixed(2).replace('.', ',')))
         shoppingCartTotalElement.appendChild(shoppingCartTotalSpanElement)
         // page element
         const shoppingCartPageElement = document.createElement("div")
@@ -107,7 +124,7 @@ class ShoppingCart {
         else {
             const shoppingCartLabels = document.createElement("div")
             shoppingCartLabels.className = "shopping-cart-labels"
-            shoppingCartLabels.innerHTML = `<p class="product-name">Nome</p><p class="product-price">Preço</p><p class="product-amount">QTD</p><p class="product-price-total">Total</p>`
+            shoppingCartLabels.innerHTML = `<div class="main-labels"><p class="product-name">Nome</p><p class="product-price">Preço</p><p class="product-amount">QTD</p><p class="product-price-total">Total</p></div><button class="remove-all-button"><i class="fas fa-fire" data-fa-transform="down-1"></i></button>`
             const shoppingCartUlElement = document.createElement("ul")
             this.productList.map(product => {
                 const p = productList.getProductById(product.id)
@@ -116,13 +133,13 @@ class ShoppingCart {
                 productName.appendChild(document.createTextNode(p.name))
                 productName.className = "product-name"
                 const productPrice = document.createElement("p")
-                productPrice.appendChild(document.createTextNode("R$ " + p.price.toFixed(2)))
+                productPrice.appendChild(document.createTextNode("R$ " + p.price.toFixed(2).replace('.', ',')))
                 productPrice.className = "product-price"
                 const productAmount = document.createElement("p")
                 productAmount.appendChild(document.createTextNode(product.amount))
                 productAmount.className = "product-amount"
                 const productPriceTotal = document.createElement("p")
-                productPriceTotal.appendChild(document.createTextNode("R$ " + ((p.price * product.amount).toFixed(2))))
+                productPriceTotal.appendChild(document.createTextNode("R$ " + ((p.price * product.amount).toFixed(2).replace('.', ','))))
                 productPriceTotal.className = "product-price-total"
                 const removeFromCartButton = document.createElement("button")
                 removeFromCartButton.innerHTML = `<i class="fas fa-trash" data-fa-transform="down-1"></i>`
@@ -265,7 +282,7 @@ class Product {
         const titleElement = document.createElement("h3")
         titleElement.appendChild(document.createTextNode(this.name))
         const priceElement = document.createElement("p")
-        priceElement.appendChild(document.createTextNode("R$ " + this.price.toFixed(2)))
+        priceElement.appendChild(document.createTextNode("R$ " + this.price.toFixed(2).replace('.', ',')))
         priceElement.classList = "product-price"
         // links
         const linkImage = document.createElement("a")
@@ -300,7 +317,7 @@ class Product {
         descriptionElement.appendChild(document.createTextNode(this.description))
         descriptionElement.className = "product-description"
         const priceElement = document.createElement("p")
-        priceElement.appendChild(document.createTextNode("R$ " + this.price.toFixed(2)))
+        priceElement.appendChild(document.createTextNode("R$ " + this.price.toFixed(2).replace('.', ',')))
         priceElement.classList = "product-price"
         const addToCartButtonElement = document.createElement("button")
         addToCartButtonElement.innerHTML = `<i class="fas fa-plus" data-fa-transform="down-1"></i>Comprar`

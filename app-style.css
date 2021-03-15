@@ -30,7 +30,7 @@ a {text-decoration: none; color: #333; transition: 200ms; border-bottom: 2px sol
 a:hover {cursor: pointer; border-color: #333;}
 
 button {font-size: inherit; background: #e6e5dd; color: #333; border: 2px solid #e6e5dd; line-height: 1.25rem; padding: 0.25rem 0.75rem; font-weight: 700; transition: 200ms; border-radius: 0.25rem;}
-button:hover {cursor: pointer; border-color: #333;}
+button:hover {cursor: pointer; border-color: #bbb;}
 
 li {list-style: none;}
 
@@ -68,15 +68,17 @@ li {list-style: none;}
 #shopping-cart-page ul li {display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e6e5dd;}
 #shopping-cart-page ul li:last-child {border-bottom: none;}
 
-#shopping-cart-page .shopping-cart-labels {font-size: 0.75rem; display: flex; justify-content: space-between; margin-right: 42px; padding-right: 1rem; color: #ccc;}
+#shopping-cart-page .shopping-cart-labels {display: flex; justify-content: space-between; padding-bottom: 1rem;border-bottom: 1px solid #e6e5dd;}
 
 #shopping-cart-page .product-shopping-cart-info {display: flex; flex-grow: 1; align-items: center; padding-right: 1rem; line-height: 1.25rem;}
 #shopping-cart-page .product-name {flex-grow: 1;}
-#shopping-cart-page .product-price {width: 20%; padding: 0 0.5rem; text-align: center;}
-#shopping-cart-page .product-amount {width: 10%; text-align: center;}
-#shopping-cart-page .product-price-total {width: 20%; font-weight: 700; padding: 0 0.5rem; text-align: center;}
+#shopping-cart-page .product-price {width: 25%; padding: 0 0.5rem; text-align: center;}
+#shopping-cart-page .product-amount {width: 15%; text-align: center;}
+#shopping-cart-page .product-price-total {width: 25%; font-weight: 700; padding: 0 0.5rem; text-align: center;}
 
-#shopping-cart-page .remove-button {text-align: center;}
+#shopping-cart-page .shopping-cart-labels .main-labels {display: flex; flex-grow: 1; align-items: center; padding-right: 1rem; font-size: 0.875rem;}
+#shopping-cart-page .remove-all-button {width: 42px; color: #fff; background-color: #ff5858; border-color: #ff5858;}
+#shopping-cart-page .remove-all-button:hover {border-color: #ac2222;} 
 
 /* - - - - - - - - - - - - - - - - - - - - header */
 
