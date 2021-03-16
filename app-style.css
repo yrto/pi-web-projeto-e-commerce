@@ -78,7 +78,7 @@ li {list-style: none;}
 
 #shopping-cart-page .shopping-cart-labels .main-labels {display: flex; flex-grow: 1; align-items: center; padding-right: 1rem; font-size: 0.875rem;}
 #shopping-cart-page .remove-all-button {width: 42px; color: #fff; background-color: #ff5858; border-color: #ff5858;}
-#shopping-cart-page .remove-all-button:hover {border-color: #ac2222;} 
+#shopping-cart-page .remove-all-button:hover {border-color: #c72a2a;} 
 
 /* - - - - - - - - - - - - - - - - - - - - header */
 
